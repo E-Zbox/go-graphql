@@ -1,0 +1,40 @@
+directive @goField(forceResolver: Boolean, name: String) on FIELD_DEFINITION
+
+scalar Uint
+
+input CreateTodoInput {
+  text: String!
+  userId: ID!
+}
+
+type Todo {
+  id: ID!
+  completed: Boolean!
+  started: Boolean!
+  text: String!
+  userId: Uint! @goField(name: "UserId")
+  user: User! @goField(forceResolver: true)
+  createdAt: String!
+  updatedAt: String!
+}
+
+type TodoResponse {
+  data: Todo
+  error: String!
+  success: Boolean!
+}
+
+type TodosResponse {
+  data: [Todo!]!
+  error: String!
+  success: Boolean!
+}
+
+type Query {
+  getTodo(input: IDInput!): TodoResponse
+  getTodos(input: IDInput!): TodosResponse!
+}
+
+type Mutation {
+  createTodo(input: CreateTodoInput!): TodoResponse
+}

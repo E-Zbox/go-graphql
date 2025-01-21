@@ -1,0 +1,46 @@
+input CreateUserInput {
+  age: Int!
+  country: String!
+  email: String!
+  firstName: String!
+  lastName: String!
+  role: String!
+}
+
+input GetUserInput {
+  id: String
+  email: String
+}
+
+type User {
+  id: ID!
+  age: Int!
+  country: String!
+  email: String!
+  firstName: String!
+  lastName: String!
+  role: String!
+  createdAt: String!
+  updatedAt: String!
+}
+
+type UserResponse {
+  data: User
+  error: String!
+  success: Boolean!
+}
+
+type UsersResponse {
+  data: [User!]!
+  error: String!
+  success: Boolean!
+}
+
+extend type Query {
+  getUser(input: GetUserInput): UserResponse
+  getUsers: UsersResponse!
+}
+
+extend type Mutation {
+  createUser(input: CreateUserInput!): UserResponse
+}
